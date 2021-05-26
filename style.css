@@ -1,0 +1,26 @@
+body{
+    margin: -1.3rem 0px;
+    padding: 0px;
+    
+}
+.navBar{
+    /*min-width: 3rem;
+    max-width: 100vw;
+    height: 10rem;*/
+    background-color: rgb(206, 17, 17);
+    margin-top:  -1.3rem;
+}
+main canvas{
+  padding-left: 13rem;
+    
+}
+button{
+    margin-left: 13rem;
+}
+.Canvas{
+    margin-top: -1.3rem;
+    
+}
+.btn{
+    margin: 1rem;
+}
