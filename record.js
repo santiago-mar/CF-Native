@@ -15,6 +15,8 @@ let recordedFrames = 0;
 
 let count = 0;
 let x =0;
+let fTriangle = 0;
+let figura;
 
 // Record audio
 let mic, recorder, soundFile, state;
@@ -45,7 +47,7 @@ function setup() {
     
     var canvas = createCanvas(cwidth, cheight);
     canvas.parent('canvas');
-    background('rgba(0,255,0, 0.25)');
+    // background('rgba(0,255,0, 0.25)');
     frameRate(frate);
     //button = button = createButton('record')
     //button.mousePressed(() => recording = true);
@@ -57,7 +59,9 @@ function setup() {
     recorder = new p5.SoundRecorder();
     recorder.setInput(mic);
     soundFile = new p5.SoundFile();
-    mic.start();
+    //mic.start();
+
+    // figura = triangle(30, 75, 58, 20, 86, 75);
 }
 
 function clickRecording(){
@@ -75,17 +79,27 @@ function recordVoice(){
 }
 function stopRecordVoice(){
     // console.log("Stop record Voice");
-    state = 1;
-    stopVoice();
+    fTriangle = 1;
+    console.log(fTriangle);
+    // stopVoice();
 }
 
 function draw() {
-    
+    background(200,0,0);
     ellipse(150, 100, 100, 100);
     rectMode(CENTER);
     translate(width / 2, height / 2);
     translate(p5.Vector.fromAngle(millis() / 1000, 40));
     rect(0, 0, 20, 20);
+    // figura = triangle(30, 75, 58, 20, 86, 75);
+    // background('rgba(255,255,255,0.25)');
+    
+    if(fTriangle == 1){
+        triangle(30, 75, 58, 20, 86, 75);
+        // figura;
+        // console.log("Entro");
+    }
+    //fTriangle++;
     
     /*
     x = x + 0.1;
@@ -122,6 +136,7 @@ function draw() {
 
 function recordV() {
     // usar el booleano '.enabled' (permitido) para asegurarse que el micrófono haya sido habilitado por el usuario (si no grabaríamos silencio)
+    getAudioContext().resume();
     if (state === 0 && mic.enabled) {
         console.log("recordingVoice");
         // indicar al grabador que grabe en el objeto p5.SoundFile, que usaremos para la reproducción
