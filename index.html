@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
-    <!--<script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js"></script>
     <script src="p5.sound.js"></script>
+
     <link href="style.css" rel="stylesheet">
 </head>
 
@@ -17,20 +17,29 @@
         <h2>Narradores Digitales</h2>
     </div>
     <div class="canvas" id="canvas"></div>
+
     <div class="btn">
         <button id="record">Record</button>
+        <button id="record2">Record2</button>
         <button id="stop">Stop</button>
-        <button id="triangle">Triangle</button>
-        <button id="recordV">RecordVoice</button>
-        <button id="stopV">StopVoice</button>
+        <button id="characters" onclick="characterOM()">Characters</button>
+        <button id="scenes" onclick="sceneOM()">Scene</button>
+
+        <div id="character" style="display: none;">
+            <button id="character1" value="1">Character1</button>
+            <button id="character2" value="2">Character2</button>
+            <button id="character3" value="3">Character3</button>
+        </div>
+
+        <div id="scene" style="display: none;">
+            <button id="scene1" value="1">Scene1</button>
+            <button id="scene2" value="2">Scene2</button>
+            <button id="scene3" value="3">Scene3</button>
+        </div>
+        
     </div>
-    
-    <!-- <script src="setup.js"></script> -->
     <script src="record.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/addons/p5.sound.js"></script> -->
-     <!-- <script src="recordVoz.js"></script>  -->
-    
+    <script src="interaction.js"></script>
 </body>
 
 </html>
