@@ -17,6 +17,11 @@ let imgCharacter, imgCharacter1, imgCharacter2, imgCharacter3, imgScene, imgScen
 //Variables para animación
 let xMove;
 let yMove;
+vjump = false;
+const limit = 300;
+const suelo = 450;
+let saltar = suelo;
+let up = true;
 
 //Complemento de los botones para la funcion de grabar.
 document.getElementById("record").onclick = function () { clickRecording() };
@@ -31,6 +36,9 @@ document.getElementById("character3").onclick = function () { selectedCharacter(
 document.getElementById("scene1").onclick = function () { selectedScene(document.getElementById("scene1").value) };
 document.getElementById("scene2").onclick = function () { selectedScene(document.getElementById("scene2").value) };
 document.getElementById("scene3").onclick = function () { selectedScene(document.getElementById("scene3").value) };
+
+// Saltar
+document.getElementById("jump").onclick = function () { jump() };
 //-----------------------------------------------------
 
 // Carga todos los elementos de la grabación de video.
@@ -71,18 +79,35 @@ function selectedScene(value) {
     console.log("The Scene is " + value);
 }
 
+function jump(){
+    vjump = true;    
+    // let limit = 100;
+    // for (let i = 0; i < limit; i++) {
+    //     // const element = array[i];
+    //     console.log("entró");
+    //     yMove++;        
+    // }
+    // for (let j = limit; j > 0; j--) {
+    //     // const element = array[j];
+    //     yMove--;         
+    // }
+
+}
+
 function setup() {
     var canvas = createCanvas(cwidth, cheight);
     canvas.parent('canvas');
     frameRate(frate);
 
     // xMove = width / 2;
-    yMove = cheight;
+    // yMove = cheight;
+    yMove = suelo;
 }
 function draw() {
     background(200);
     //background(image(imgScene1, 0, 0, cwidth, cheight));
     ellipse(200, yMove, 24, 24);
+    //console.log(yMove);
     // moverse aleatoriamente en el eje x
     //xMove = xMove + random(-1, 1);
     // mover hacia arriba a velocidad constante
@@ -94,10 +119,10 @@ function draw() {
 
     // //yMove = yMove - 5;
     // // reset al fondo
-    if (yMove == 0) {
-        yMove = cheight;
-    }
-    yMove--;
+    // if (yMove == 0) {
+    //     yMove = cheight;
+    // }
+    // yMove--;
 
     if (imgScene == 1) {
         image(imgScene1, 0, 0, cwidth, cheight);
@@ -113,6 +138,25 @@ function draw() {
         image(imgCharacter2, 0, 0, 200, 200);
     } else if (imgCharacter == 3) {
         image(imgCharacter3, 0, 0, 200, 200);
+    }
+
+    // Saltar
+    if(vjump == true){
+        if(saltar > limit && up == true){
+            yMove--;
+            saltar--;
+        } else if (saltar == limit){
+            up = false;
+            yMove++;
+            saltar++;
+        }else if (saltar < suelo) {
+            yMove++;
+            saltar++;
+        }
+        else if (saltar == suelo){
+            up = true;
+            vjump = false;
+        }
     }
 
 
