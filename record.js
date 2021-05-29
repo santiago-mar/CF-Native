@@ -14,14 +14,18 @@ let fTriangle = 0;
 // Variables para los personajes y los escenarios
 let imgCharacter, imgCharacter1, imgCharacter2, imgCharacter3, imgScene, imgScene1, imgScene2, imgScene3;
 
+// Cargar personajes
+var vid;
+
 //Variables para animación
 let xMove;
 let yMove;
 vjump = false;
-const limit = 300;
-const suelo = 450;
+const limit = 270;
+const suelo = 300;
 let saltar = suelo;
 let up = true;
+const scale = 5;
 
 //Complemento de los botones para la funcion de grabar.
 document.getElementById("record").onclick = function () { clickRecording() };
@@ -54,12 +58,14 @@ function preload() {
         encoder.initialize();
     })
 
-    imgCharacter1 = loadImage("./img/hombre.svg");
-    imgCharacter2 = loadImage("./img/hombre1.svg");
-    imgCharacter3 = loadImage("./img/mujer.svg");
+    imgCharacter1 = loadImage("./img/personaje1.gif");
+    imgCharacter2 = loadImage("./img/personaje3.gif");
+    imgCharacter3 = loadImage("./img/personaje4.gif");
     imgScene1 = loadImage("./img/paisaje1.jpg");
     imgScene2 = loadImage("./img/paisaje2.jpg");
     imgScene3 = loadImage("./img/paisaje3.jpg");
+
+    
 }
 
 function clickRecording() {
@@ -79,8 +85,8 @@ function selectedScene(value) {
     console.log("The Scene is " + value);
 }
 
-function jump(){
-    vjump = true;    
+function jump() {
+    vjump = true;
     // let limit = 100;
     // for (let i = 0; i < limit; i++) {
     //     // const element = array[i];
@@ -102,16 +108,21 @@ function setup() {
     // xMove = width / 2;
     // yMove = cheight;
     yMove = suelo;
+
+    // vid = createVideo("./img/personaje1a.mp4");
+    //vid.loop();
 }
 function draw() {
     background(200);
     //background(image(imgScene1, 0, 0, cwidth, cheight));
     ellipse(200, yMove, 24, 24);
+    // image(vid, 500, 500);
+    // console
     //console.log(yMove);
     // moverse aleatoriamente en el eje x
     //xMove = xMove + random(-1, 1);
     // mover hacia arriba a velocidad constante
-    
+
     // if (xMove > cwidth) {
     //     xMove = 0;
     // }
@@ -133,33 +144,31 @@ function draw() {
     }
 
     if (imgCharacter == 1) {
-        image(imgCharacter1, 0, 0, 200, 200);
+        image(imgCharacter1, 0, yMove, (imgCharacter1.width / scale), (imgCharacter1.height / scale));
     } else if (imgCharacter == 2) {
-        image(imgCharacter2, 0, 0, 200, 200);
+        image(imgCharacter2, 0,  yMove, (imgCharacter2.width / scale), (imgCharacter2.height / scale));
     } else if (imgCharacter == 3) {
-        image(imgCharacter3, 0, 0, 200, 200);
+        image(imgCharacter3, 0,  yMove, (imgCharacter3.width / scale), (imgCharacter3.height / scale));
     }
 
     // Saltar
-    if(vjump == true){
-        if(saltar > limit && up == true){
+    if (vjump == true) {
+        if (saltar > limit && up == true) {
             yMove--;
             saltar--;
-        } else if (saltar == limit){
+        } else if (saltar == limit) {
             up = false;
             yMove++;
             saltar++;
-        }else if (saltar < suelo) {
+        } else if (saltar < suelo) {
             yMove++;
             saltar++;
         }
-        else if (saltar == suelo){
+        else if (saltar == suelo) {
             up = true;
             vjump = false;
         }
     }
-
-
 
     //rectMode(CENTER);
     //translate(width / 2, height / 2);
