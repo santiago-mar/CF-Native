@@ -2,6 +2,13 @@
 let cwidth = 960;
 let cheight = 540;
 
+// Puerto
+let serial; // variable to hold an instance of the serialport library
+let portName = 'COM3';  // fill in your serial port name here
+var data;
+let characterPP, characterP1, characterP2, scene, saltarPP, moversePP, rec;
+
+
 // RECORD VIDEO
 let encoder;
 const frate = 30; // frame rate- Max:9000Frames
@@ -60,6 +67,15 @@ document.getElementById("jumpP2").onclick = function () { jumpP2() };
 // Caminar
 document.getElementById("walkP1").onclick = function () { walkP1() };
 document.getElementById("walkP2").onclick = function () { walkP2() };
+
+// Interaccion
+characterPP = document.getElementById('characterPP');
+characterP1 = document.getElementById('characterP1');
+characterP2 = document.getElementById('characterP2');
+scene = document.getElementById('scene');
+saltarPP = document.getElementById('saltarPP');
+moversePP = document.getElementById('moversePP');
+rec = document.getElementById('rec');
 
 //-----------------------------------------------------
 
@@ -230,6 +246,14 @@ function saltar(){
     }
 }
 
+function printList(portList) {
+    // portList is an array of serial port names
+    for (var i = 0; i < portList.length; i++) {
+      // Display the list the console:
+      console.log(i + portList[i]);
+    }
+}
+
 function setup() {
     var canvas = createCanvas(cwidth, cheight);
     canvas.parent('canvas');
@@ -241,11 +265,39 @@ function setup() {
     xMoveP2 = 0;
     yMoveP2 = suelo;
 
-    // vid = createVideo("./img/personaje1a.mp4");
-    //vid.loop();
+    serial = new p5.SerialPort();       // make a new instance of the serialport library
+    serial.on('list', printList);  // set a callback function for the serialport list event
+    serial.on('connected', serverConnected); // callback for connecting to the server
+    serial.on('open', portOpen);        // callback for the port opening
+    serial.on('data', serialEvent);     // callback for when new data arrives
+    serial.on('error', serialError);    // callback for errors
+    serial.on('close', portClose);      // callback for the port closing
+   
+    serial.list();                      // list the serial ports
+    serial.open(portName);              // open a serial port
+
+    // data = Number(serial.read());
+    // console.log(data);
 }
 
 function draw() {
+
+    // console.log()
+    if(data == 1){
+        sceneOM();
+        data=0;
+    }else if (data == 2){
+        characterOM();
+        data=0;
+    }else if (data == 3){
+        saltarOM();
+        moverseOM();
+        data=0;
+    }else if (data == 4){
+        recOM();
+        data=0;
+    }
+
     background(200);
 
     if (imgScene == 1) {
@@ -294,3 +346,137 @@ function draw() {
         preload();
     }
 }
+
+function serverConnected() {
+    console.log('connected to server.');
+  }
+   
+  function portOpen() {
+    console.log('the serial port opened.')
+  }
+   
+  function serialEvent() {
+  data = Number(serial.read());
+  console.log(data);
+    // check to see that there's actually a string there:
+    
+    
+  }
+   
+  function serialError(err) {
+    console.log('Something went wrong with the serial port. ' + err);
+  }
+   
+  function portClose() {
+    console.log('The serial port closed.');
+  }
+  
+  function characterOM() {
+  
+    characterP1.style.display = "none";
+    characterP2.style.display = "none";
+    scene.style.display = "none";
+    saltarPP.style.display = "none";
+    moversePP.style.display = "none";
+    rec.style.display = "none";
+  
+    if (characterPP.style.display == "none") {
+        characterPP.style.display = "block";
+    } else if(characterPP.style.display == "block") {
+        characterPP.style.display = "none";
+    }
+  }
+  
+  function saltarOM() {
+  
+    characterPP.style.display = "none";
+    characterP1.style.display = "none";
+    characterP2.style.display = "none";
+    scene.style.display = "none";
+    rec.style.display = "none";
+  
+    if (saltarPP.style.display == "none") {
+        saltarPP.style.display = "block";
+    } else {
+        saltarPP.style.display = "none";
+    }
+  }
+  
+  function moverseOM() {
+  
+    characterPP.style.display = "none";
+    characterP1.style.display = "none";
+    characterP2.style.display = "none";
+    scene.style.display = "none";
+    rec.style.display = "none";
+  
+    if (moversePP.style.display == "none") {
+        moversePP.style.display = "block";
+    } else {
+        moversePP.style.display = "none";
+    }
+  }
+  
+  function characterOMP1() {
+  
+    characterPP.style.display = "none";
+    characterP2.style.display = "none";
+    scene.style.display = "none";
+    saltarPP.style.display = "none";
+    moversePP.style.display = "none";
+    rec.style.display = "none";
+  
+    if (characterP1.style.display == "none") {
+        characterP1.style.display = "block";
+    } else {
+        characterP1.style.display = "none";
+    }
+  }
+  
+  function characterOMP2() {
+  
+    characterPP.style.display = "none";
+    characterP1.style.display = "none";
+    scene.style.display = "none";
+    saltarPP.style.display = "none";
+    moversePP.style.display = "none";
+    rec.style.display = "none";
+  
+    if (characterP2.style.display == "none") {
+        characterP2.style.display = "block";
+    } else {
+        characterP2.style.display = "none";
+    }
+  }
+  
+  function sceneOM() {
+  
+    characterPP.style.display = "none";
+    characterP1.style.display = "none";
+    characterP2.style.display = "none";
+    saltarPP.style.display = "none";
+    moversePP.style.display = "none";
+    rec.style.display = "none";
+  
+    if (scene.style.display == "none") {
+        scene.style.display = "block";
+    } else {
+        scene.style.display = "none";
+    }
+  }
+
+  function recOM() {
+  
+    characterPP.style.display = "none";
+    characterP1.style.display = "none";
+    characterP2.style.display = "none";
+    saltarPP.style.display = "none";
+    moversePP.style.display = "none";
+    scene.style.display = "none";
+  
+    if (rec.style.display == "none") {
+        rec.style.display = "block";
+    } else {
+        rec.style.display = "none";
+    }
+  }
