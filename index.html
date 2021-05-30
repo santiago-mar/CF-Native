@@ -20,16 +20,37 @@
 
     <div class="btn">
         <button id="record">Record</button>
-        <button id="record2">Record2</button>
         <button id="stop">Stop</button>
-        <button id="characters" onclick="characterOM()">Characters</button>
+        <button id="characters" onclick="characterOM()">Personajes</button>
         <button id="scenes" onclick="sceneOM()">Scene</button>
-        <button id="jump">Saltar</button>
+        <button id="jump" onclick="saltarOM()">Saltar</button>
+        <button id="walk" onclick="moverseOM()">Moverse</button>
 
-        <div id="character" style="display: none;">
-            <button id="character1" value="1">Character1</button>
-            <button id="character2" value="2">Character2</button>
-            <button id="character3" value="3">Character3</button>
+        <div id="saltarPP" style="display: none;">
+            <button id="jumpP1">Saltar P1</button>
+            <button id="jumpP2">Saltar P2</button>
+        </div>
+
+        <div id="moversePP" style="display: none;">
+            <button id="walkP1">Moverse P1</button>
+            <button id="walkP2">Moverse P2</button>
+        </div>
+
+        <div id="characterPP" style="display: none;">
+            <button id="caracterP2" onclick="characterOMP1()">Personaje 1</button>
+            <button id="caracterP1" onclick="characterOMP2()">Personaje 2</button>
+        </div>
+
+        <div id="characterP1" style="display: none;">
+            <button id="character1P1" value="11">Character1 P1</button>
+            <button id="character2P1" value="12">Character2 P1</button>
+            <button id="character3P1" value="13">Character3 P1</button>
+        </div>
+
+        <div id="characterP2" style="display: none;">
+            <button id="character1P2" value="21">Character1 P2</button>
+            <button id="character2P2" value="22">Character2 P2</button>
+            <button id="character3P2" value="23">Character3 P2</button>
         </div>
 
         <div id="scene" style="display: none;">
