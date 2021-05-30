@@ -18,15 +18,21 @@ let imgCharacterP1, imgCharacterP2, imgCharacter1, imgCharacter2, imgCharacter3,
 var vid;
 
 //Variables para animación
-let xMove;
-let yMove;
-vjump = false;
+let xMoveP1;
+let yMoveP1;
+let xMoveP2;
+let yMoveP2;
+let vjumpP1 = false;
+let vjumpP2 = false;
 const limit = 170;
 const suelo = 200;
-let saltar = suelo;
-let up = true;
+let saltarP1 = suelo;
+let saltarP2 = suelo;
+let upP1 = true;
+let upP2 = true;
 const scale = 4;
-let mov = false;
+let movP1 = false;
+let movP2 = false;
 
 //Complemento de los botones para la funcion de grabar.
 document.getElementById("record").onclick = function () { clickRecording() };
@@ -48,10 +54,13 @@ document.getElementById("scene2").onclick = function () { selectedScene(document
 document.getElementById("scene3").onclick = function () { selectedScene(document.getElementById("scene3").value) };
 
 // Saltar
-document.getElementById("jump").onclick = function () { jump() };
+document.getElementById("jumpP1").onclick = function () { jumpP1() };
+document.getElementById("jumpP2").onclick = function () { jumpP2() }; 
 
 // Caminar
-document.getElementById("walk").onclick = function () { walk() };
+document.getElementById("walkP1").onclick = function () { walkP1() };
+document.getElementById("walkP2").onclick = function () { walkP2() };
+
 //-----------------------------------------------------
 
 // Carga todos los elementos de la grabación de video.
@@ -92,40 +101,131 @@ function selectedCharacterP1(value) {
 }
 
 function selectedCharacterP2(value) {
-    imgCharacter = value;
+    imgCharacterP2 = value;
 }
 
 function selectedScene(value) {
     imgScene = value;
 }
 
-function jump() {
-    vjump = true;
+function jumpP1() {
+    vjumpP1 = true;
 }
 
-function walk() {
-    if(mov == true){
-        mov = false;
-    }else if (mov == false){
-        mov = true;
+function jumpP2() {
+    vjumpP2 = true;
+}
+
+function walkP1() {
+    if(movP1 == true){
+        movP1 = false;
+    }else if (movP1 == false){
+        movP1 = true;
+    }
+}
+
+function walkP2() {
+    if(movP2 == true){
+        movP2 = false;
+    }else if (movP2 == false){
+        movP2 = true;
     }
 }
 
 function caminar(){
 
-    if(mov == true){
-        if (imgCharacterP1 == 1) {
-            image(imgCharacter1Move, xMove, yMove, (imgCharacter1Move.width / scale), (imgCharacter1Move.height / scale));
-        } else if (imgCharacterP1 == 2) {
-            image(imgCharacter2Move, xMove, yMove, (imgCharacter2Move.width / scale), (imgCharacter2Move.height / scale));
-        } else if (imgCharacterP1 == 3) {
-            image(imgCharacter3Move, xMove, yMove, (imgCharacter3Move.width / scale), (imgCharacter3Move.height / scale));
+    if(movP1 == true){
+        if (imgCharacterP1 == 11) {
+            image(imgCharacter1Move, xMoveP1, yMoveP1, (imgCharacter1Move.width / scale), (imgCharacter1Move.height / scale));
+        } else if (imgCharacterP1 == 12) {
+            image(imgCharacter2Move, xMoveP1, yMoveP1, (imgCharacter2Move.width / scale), (imgCharacter2Move.height / scale));
+        } else if (imgCharacterP1 == 13) {
+            image(imgCharacter3Move, xMoveP1, yMoveP1, (imgCharacter3Move.width / scale), (imgCharacter3Move.height / scale));
         }
 
-        if (xMove < cwidth){
-            xMove++
-        }else if (xMove == cwidth) {
-            xMove = 0;
+        if (xMoveP1 < cwidth){
+            xMoveP1++
+        }else if (xMoveP1 == cwidth) {
+            xMoveP1 = 0;
+        }
+    }
+
+    if(movP2 == true){
+
+        if (imgCharacterP2 == 21) {
+            image(imgCharacter1Move, xMoveP2, yMoveP2, (imgCharacter1Move.width / scale), (imgCharacter1Move.height / scale));
+        } else if (imgCharacterP2 == 22) {
+            image(imgCharacter2Move, xMoveP2, yMoveP2, (imgCharacter2Move.width / scale), (imgCharacter2Move.height / scale));
+        } else if (imgCharacterP2 == 23) {
+            image(imgCharacter3Move, xMoveP2, yMoveP2, (imgCharacter3Move.width / scale), (imgCharacter3Move.height / scale));
+        }
+
+        if (xMoveP2 < cwidth){
+            xMoveP2++
+        }else if (xMoveP2 == cwidth) {
+            xMoveP2 = 0;
+        }
+    }
+}
+
+function character(){
+    if (movP1 == false){
+        if (imgCharacterP1 == 11) {
+            image(imgCharacter1, xMoveP1, yMoveP1, (imgCharacter1.width / scale), (imgCharacter1.height / scale));
+        } else if (imgCharacterP1 == 12) {
+            image(imgCharacter2, xMoveP1,  yMoveP1, (imgCharacter2.width / scale), (imgCharacter2.height / scale));
+        } else if (imgCharacterP1 == 13) {
+            image(imgCharacter3, xMoveP1,  yMoveP1, (imgCharacter3.width / scale), (imgCharacter3.height / scale));
+        }
+    }
+
+    if (movP2 == false){
+        
+        if (imgCharacterP2 == 21) {
+            console.log("ENTRO");
+            image(imgCharacter1, xMoveP2, yMoveP2, (imgCharacter1.width / scale), (imgCharacter1.height / scale));
+        } else if (imgCharacterP2 == 22) {
+            image(imgCharacter2, xMoveP2,  yMoveP2, (imgCharacter2.width / scale), (imgCharacter2.height / scale));
+        } else if (imgCharacterP2 == 23) {
+            image(imgCharacter3, xMoveP2,  yMoveP2, (imgCharacter3.width / scale), (imgCharacter3.height / scale));
+        }
+    }
+}
+
+function saltar(){
+    if (vjumpP1 == true) {
+        if (saltarP1 > limit && upP1 == true) {
+            yMoveP1--;
+            saltarP1--;
+        } else if (saltarP1 == limit) {
+            upP1 = false;
+            yMoveP1++;
+            saltarP1++;
+        } else if (saltarP1 < suelo) {
+            yMoveP1++;
+            saltarP1++;
+        }
+        else if (saltarP1 == suelo) {
+            upP1 = true;
+            vjumpP1 = false;
+        }
+    }
+
+    if (vjumpP2 == true) {
+        if (saltarP2 > limit && upP2 == true) {
+            yMoveP2--;
+            saltarP2--;
+        } else if (saltarP2 == limit) {
+            upP2 = false;
+            yMoveP2++;
+            saltarP2++;
+        } else if (saltarP2 < suelo) {
+            yMoveP2++;
+            saltarP2++;
+        }
+        else if (saltarP2 == suelo) {
+            upP2 = true;
+            vjumpP2 = false;
         }
     }
 }
@@ -135,13 +235,16 @@ function setup() {
     canvas.parent('canvas');
     frameRate(frate);
 
-    xMove = 0;
-    // yMove = cheight;
-    yMove = suelo;
+    xMoveP1 = 0;
+    yMoveP1 = suelo;
+
+    xMoveP2 = 0;
+    yMoveP2 = suelo;
 
     // vid = createVideo("./img/personaje1a.mp4");
     //vid.loop();
 }
+
 function draw() {
     background(200);
 
@@ -153,44 +256,11 @@ function draw() {
         image(imgScene3, 0, 0, cwidth, cheight);
     }
 
-    if (mov == false){
-        if (imgCharacterP1 == 11) {
-            image(imgCharacter1, xMove, yMove, (imgCharacter1.width / scale), (imgCharacter1.height / scale));
-        } else if (imgCharacterP1 == 12) {
-            image(imgCharacter2, xMove,  yMove, (imgCharacter2.width / scale), (imgCharacter2.height / scale));
-        } else if (imgCharacterP1 == 13) {
-            image(imgCharacter3, xMove,  yMove, (imgCharacter3.width / scale), (imgCharacter3.height / scale));
-        }
-    }
-
+    character();
     caminar();
-    // Caminar
-    // if(mov == true){
-    //     if (xMove < cwidth){
-    //         xMove++
-    //     }else if (xMove == cwidth) {
-    //         xMove = 0;
-    //     }
-    // }
+    saltar();
 
     //Saltar
-    if (vjump == true) {
-        if (saltar > limit && up == true) {
-            yMove--;
-            saltar--;
-        } else if (saltar == limit) {
-            up = false;
-            yMove++;
-            saltar++;
-        } else if (saltar < suelo) {
-            yMove++;
-            saltar++;
-        }
-        else if (saltar == suelo) {
-            up = true;
-            vjump = false;
-        }
-    }
 
     //rectMode(CENTER);
     //translate(width / 2, height / 2);
