@@ -7,7 +7,8 @@
     <title>Document</title>
     <script src="https://unpkg.com/h264-mp4-encoder/embuild/dist/h264-mp4-encoder.web.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.3.1/p5.min.js"></script>
-    <script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.29/lib/p5.serialport.js"></script>
+    <script language="javascript" type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.29/lib/p5.serialport.js"></script>
     <script src="p5.sound.js"></script>
     <script language="javascript" type="text/javascript" src="p5.serialport.js"></script>
 
@@ -18,53 +19,57 @@
     <div class="navBar">
         <h2>Narradores Digitales</h2>
     </div>
-    <div class="canvas" id="canvas"></div>
+    <div class="canBtn">
+        <div class="canvas" id="canvas"></div>
 
-    <div class="btn">
-        
-        <button id="characters" onclick="characterOM()">Personajes</button>
-        <button id="scenes" onclick="sceneOM()">Scene</button>
-        <button id="jump" onclick="saltarOM()">Saltar</button>
-        <button id="walk" onclick="moverseOM()">Moverse</button>
+        <div class="btn">
 
-        <div id="rec" style="display: none;">
-            <button id="record">Record</button>
-            <button id="stop">Stop</button>
+            <h1>Botones</h1>
+
+            <button id="characters" onclick="characterOM()">Personajes</button>
+            <button id="scenes" onclick="sceneOM()">Scene</button>
+            <button id="jump" onclick="saltarOM()">Saltar</button>
+            <button id="walk" onclick="moverseOM()">Moverse</button>
+
+            <div id="rec" style="display: none;">
+                <button id="record">Record</button>
+                <button id="stop">Stop</button>
+            </div>
+
+            <div id="saltarPP" style="display: none;">
+                <button id="jumpP1">Saltar P1</button>
+                <button id="jumpP2">Saltar P2</button>
+            </div>
+
+            <div id="moversePP" style="display: none;">
+                <button id="walkP1">Moverse P1</button>
+                <button id="walkP2">Moverse P2</button>
+            </div>
+
+            <div id="characterPP" style="display: none;">
+                <button id="caracterP2" onclick="characterOMP1()">Personaje 1</button>
+                <button id="caracterP1" onclick="characterOMP2()">Personaje 2</button>
+            </div>
+
+            <div id="characterP1" style="display: none;">
+                <button id="character1P1" value="11">Character1 P1</button>
+                <button id="character2P1" value="12">Character2 P1</button>
+                <button id="character3P1" value="13">Character3 P1</button>
+            </div>
+
+            <div id="characterP2" style="display: none;">
+                <button id="character1P2" value="21">Character1 P2</button>
+                <button id="character2P2" value="22">Character2 P2</button>
+                <button id="character3P2" value="23">Character3 P2</button>
+            </div>
+
+            <div id="scene" style="display: none;">
+                <button id="scene1" value="1">Scene1</button>
+                <button id="scene2" value="2">Scene2</button>
+                <button id="scene3" value="3">Scene3</button>
+            </div>
+
         </div>
-
-        <div id="saltarPP" style="display: none;">
-            <button id="jumpP1">Saltar P1</button>
-            <button id="jumpP2">Saltar P2</button>
-        </div>
-
-        <div id="moversePP" style="display: none;">
-            <button id="walkP1">Moverse P1</button>
-            <button id="walkP2">Moverse P2</button>
-        </div>
-
-        <div id="characterPP" style="display: none;">
-            <button id="caracterP2" onclick="characterOMP1()">Personaje 1</button>
-            <button id="caracterP1" onclick="characterOMP2()">Personaje 2</button>
-        </div>
-
-        <div id="characterP1" style="display: none;">
-            <button id="character1P1" value="11">Character1 P1</button>
-            <button id="character2P1" value="12">Character2 P1</button>
-            <button id="character3P1" value="13">Character3 P1</button>
-        </div>
-
-        <div id="characterP2" style="display: none;">
-            <button id="character1P2" value="21">Character1 P2</button>
-            <button id="character2P2" value="22">Character2 P2</button>
-            <button id="character3P2" value="23">Character3 P2</button>
-        </div>
-
-        <div id="scene" style="display: none;">
-            <button id="scene1" value="1">Scene1</button>
-            <button id="scene2" value="2">Scene2</button>
-            <button id="scene3" value="3">Scene3</button>
-        </div>
-        
     </div>
     <script src="record.js"></script>
     <!-- <script src="interaction.js"></script> -->
